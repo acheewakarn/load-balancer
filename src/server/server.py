@@ -1,11 +1,11 @@
 from flask import Flask
 
-def init_app(serverId):
+def init_app(s):
     app = Flask(__name__)
 
     @app.route("/server/info")
     def server_info():
-        return str(serverId)
+        return str(s)
 
     app.add_url_rule("/", endpoint="server_info")
 
