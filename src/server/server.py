@@ -5,7 +5,7 @@ def init_app(s):
 
     @app.route("/server/info")
     def server_info():
-        return str(s)
+        return "Message from server #" + str(s)
 
     app.add_url_rule("/", endpoint="server_info")
 
