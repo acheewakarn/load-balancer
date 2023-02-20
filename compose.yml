@@ -1,0 +1,15 @@
+services:
+  node-0:
+    build: .
+    image: basic-service
+    ports:
+      - "13802:8002"
+    networks:
+      service-subnet:
+        ipv4_address: 10.10.0.2
+networks:
+  service-subnet:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.10.0.0/16
