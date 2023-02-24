@@ -5,6 +5,7 @@ services:
       dockerfile: ./src/load-balancer/Dockerfile
     environment:
       - NODE-COUNT=3
+      - NODE-ADDRESSES=http://10.10.0.3:8002;http://10.10.0.4:8002;http://10.10.0.5:8002
     networks:
       service-subnet:
         ipv4_address: 10.10.0.2
