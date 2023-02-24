@@ -1,12 +1,54 @@
 services:
-  node-0:
-    build: .
-    image: basic-service
-    ports:
-      - "13802:8002"
+  load-balancer:
+    build: 
+      context: .
+      dockerfile: ./src/load-balancer/Dockerfile
+    environment:
+      - NODE-COUNT=3
     networks:
       service-subnet:
         ipv4_address: 10.10.0.2
+    image: basic-load-balancer
+    ports:
+      - "13800:8002"
+    
+  node-0:
+    build: 
+      context: .
+      dockerfile: ./src/server/Dockerfile
+    image: basic-service
+    ports:
+      - "13802:8002"
+    environment:
+      - IPV4_ADDRESS=10.10.0.3
+    networks:
+      service-subnet:
+        ipv4_address: 10.10.0.3
+  node-1:
+    build: 
+      context: .
+      dockerfile: ./src/server/Dockerfile
+    image: basic-service
+    ports:
+      - "13804:8002"
+    environment:
+      - IPV4_ADDRESS=10.10.0.4
+    networks:
+      service-subnet:
+        ipv4_address: 10.10.0.4
+  node-2:
+    build: 
+      context: .
+      dockerfile: ./src/server/Dockerfile
+    image: basic-service
+    ports:
+      - "13806:8002"
+    environment:
+      - IPV4_ADDRESS=10.10.0.5
+    networks:
+      service-subnet:
+        ipv4_address: 10.10.0.5
+
 networks:
   service-subnet:
     ipam:
